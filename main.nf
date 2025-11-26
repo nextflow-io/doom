@@ -71,8 +71,10 @@ process playDoom {
     val true
 
     script:
+    // Use -nomusic to prevent NullPointerException when MIDI devices are unavailable
+    // See: https://github.com/nextflow-io/doom/issues/3
     """
-    java -jar $projectDir/lib/mochadoom.jar -iwad $projectDir/doom1.wad
+    java -jar $projectDir/lib/mochadoom.jar -iwad $projectDir/doom1.wad -nomusic
     """
 }
 
