@@ -1,5 +1,7 @@
 #!/usr/bin/env nextflow
 
+params.nomusic = false
+
 process printLogo {
     output:
     stdout
@@ -71,10 +73,9 @@ process playDoom {
     val true
 
     script:
-    // Use -nomusic to prevent NullPointerException when MIDI devices are unavailable
-    // See: https://github.com/nextflow-io/doom/issues/3
+    def musicFlag = params.nomusic ? '-nomusic' : ''
     """
-    java -jar $projectDir/lib/mochadoom.jar -iwad $projectDir/doom1.wad -nomusic
+    java -jar $projectDir/lib/mochadoom.jar -iwad $projectDir/doom1.wad $musicFlag
     """
 }
 
