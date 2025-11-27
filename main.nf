@@ -1,6 +1,7 @@
 #!/usr/bin/env nextflow
 
 params.nomusic = false
+params.nosound = false
 
 process printLogo {
     output:
@@ -73,9 +74,9 @@ process playDoom {
     val true
 
     script:
-    def musicFlag = params.nomusic ? '-nomusic' : ''
+    def soundFlags = params.nosound ? '-nosound' : (params.nomusic ? '-nomusic' : '')
     """
-    java -jar $projectDir/lib/mochadoom.jar -iwad $projectDir/doom1.wad $musicFlag
+    java -jar $projectDir/lib/mochadoom.jar -iwad $projectDir/doom1.wad $soundFlags
     """
 }
 
